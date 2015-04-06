@@ -1,0 +1,139 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>arraysSimilar</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+		/**
+		 * =====================================================
+		 * 请在index.html文件中，编写arraysSimilar函数，实现判断传入的两个数组是否相似。具体需求：
+		 * 1. 数组中的成员类型相同，顺序可以不同。例如[1, true] 与 [false, 2]是相似的。
+		 * 2. 数组的长度一致。
+		 * 3. 类型的判断范围，需要区分:String, Boolean, Number, undefined, null, 函数，日期, window.
+		 *
+		 * 当以上全部满足，则返回"判定结果:通过"，否则返回"判定结果:不通过"。
+		 * ===================================================== 
+		 */
+		
+		/*
+		* param1 Array
+		* param2 Array
+		* return true or false
+		*/
+		function arraysSimilar(arr1, arr2){
+			if (arr1 instanceof Array && arr2 instanceof Array ) {	//先判断传入的是否是数组
+				if (arr1.length == arr2.length) {					//判断数组长度
+					console.log("same-length");
+					console.log(arr1);
+					console.log(arr2);
+					//开始判断数组内部是否相似
+					return sameLengthArraysSimilar(arr1, arr2);
+				} else{
+					//两个数组长度不同返回false
+					return false;
+				}
+			} else {
+				//传入的参数不是数组返回false
+				return false;
+			}
+		}
+
+		/**
+		 * 判断两个等长的数组内部是否相似
+		 * 遍历数组
+		 * arr1中元素各种类型出现的个数是否和arr2中元素各种类型出现的个数相同
+		 * @param  {Array} arr1 数组1
+		 * @param  {Array} arr2 数组2
+		 * @return {true,false}
+		 */
+		function sameLengthArraysSimilar(arr1,arr2) {
+			var numInArr1 = 0;
+			var numInArr2 = 0;
+			var booleanInArr1 = 0;
+			var booleanInArr2 = 0;
+			var funInArr1 = 0;
+			var funInArr2 = 0;
+			var undefinedInArr1 = 0;
+			var undefinedInArr2 = 0;
+			var stringInArr1 = 0;
+			var stringInArr2 = 0;
+			var nullInArr1 = 0;
+			var nullInArr2 = 0;
+			var dateInArr1 = 0;
+			var dateInArr2 = 0;
+			var windowInArr1 = 0;
+			var windowInArr2 = 0;
+
+			for (var i = 0; i < arr1.length; i++) {
+				if(typeof arr1[i] === 'number' ){
+					numInArr1 ++;
+				} else if(typeof arr1[i] === 'boolean'){
+					booleanInArr1 ++;
+				} else if(typeof arr1[i] === 'function'){
+					funInArr1 ++;
+				} else if(typeof arr1[i] === 'undefined'){
+					undefinedInArr1 ++;
+				} else if(typeof arr1[i] === 'string'){
+					stringInArr1 ++;
+				} else if(typeof arr1[i] ==='object'){
+					if(Object.prototype.toString.apply(arr1[i]) === '[object Null]'){
+						nullInArr1 ++;
+					} else if(Object.prototype.toString.apply(arr1[i]) === '[object Date]'){
+						dateInArr1 ++;
+					} else if(Object.prototype.toString.apply(arr1[i]) === '[object global]'){
+						windowInArr1 ++;
+					}
+				}
+
+				if(typeof arr2[i] === 'number'){
+					numInArr2 ++;
+				} else if(typeof arr2[i] === 'boolean'){
+					booleanInArr2 ++;
+				} else if(typeof arr2[i] === 'function'){
+					funInArr2 ++;
+				} else if(typeof arr2[i] === 'undefined'){
+					undefinedInArr2 ++;
+				} else if(typeof arr2[i] === 'string'){
+					stringInArr2 ++;
+				} else if(typeof arr2[i] ==='object'){
+					if(Object.prototype.toString.apply(arr2[i]) === '[object Null]'){
+						nullInArr2 ++;
+					} else if(Object.prototype.toString.apply(arr2[i]) === '[object Date]'){
+						dateInArr2 ++;
+					} else if(Object.prototype.toString.apply(arr2[i]) === '[object global]'){
+						windowInArr2 ++;
+					}
+				}
+			}
+
+			console.log("num---"+numInArr1);
+			console.log("num---"+numInArr2);
+			console.log("boo---"+booleanInArr1);
+			console.log("boo---"+booleanInArr2);
+			console.log("null---"+nullInArr1);
+			console.log("null---"+nullInArr2);
+			console.log("window---"+windowInArr1);
+			console.log("window---"+windowInArr2);
+			console.log("date---"+dateInArr1);
+			console.log("date---"+dateInArr2);
+			console.log("string---"+stringInArr1);
+			console.log("string---"+stringInArr2);
+			console.log("fun---"+funInArr1);
+			console.log("fun---"+funInArr2);
+			console.log("undefined---"+undefinedInArr1);
+			console.log("undefined---"+undefinedInArr2);
+
+			if(numInArr1 == numInArr2 && booleanInArr1==booleanInArr2 && funInArr1==funInArr2 && undefinedInArr1==undefinedInArr2 && stringInArr1==stringInArr2 && nullInArr1==nullInArr2 && dateInArr1==dateInArr2 && windowInArr1==windowInArr2){
+				console.log('================================true');
+				return true;
+			}else{
+				console.log('================================false');
+				return false;
+			}
+		}
+		</script>
+		<script src="testData.js"></script>
+	</body>
+</html>
